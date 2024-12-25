@@ -72,6 +72,10 @@ function loadTasksFromLocalStorage() {
     //needs to asure tasks time and to not show it if expired
 }
 
+function isExpired() {
+
+}
+
 function getNumberOfTasksInLocalStorage() {
     return JSON.parse(localStorage.getItem(`tasks`)).length
 }

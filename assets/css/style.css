@@ -14,19 +14,6 @@ body {
 
 }
 
-#tasksContainer {
-    grid-row: 3 / span 1;
-    display: flex;
-    /* Enables Flexbox */
-    flex-wrap: wrap;
-    /* Prevents wrapping to the next row */
-    overflow-y: auto;
-    /* Allows horizontal scrolling */
-    justify-content: flex-start;
-    /* Centers tasks horizontally */
-    margin-top: 1rem;
-}
-
 header {
     display: flex;
     justify-content: center;
@@ -54,13 +41,6 @@ header {
     grid-template-rows: 1fr 2fr 3fr;
 }
 
-/* 
-#tasksForm {
-    background-image: url('/assets/images/formbg.jpg');
-    padding: 1rem;
-    background-repeat: repeat-y;
-
-} */
 
 .task {
     flex: 0 0 auto;
@@ -80,33 +60,23 @@ header {
 
 }
 
+#tasksContainer {
+    display: flex;
+    /* Enables Flexbox */
+    flex-wrap: wrap;
+    /* Prevents wrapping to the next row */
+    overflow-y: auto;
+    /* Disables vertical scrolling */
+    justify-content: flex-start;
+    /* Centers tasks horizontally */
+    margin-top: 1rem;
+}
+
 /* Delete button */
 .task>div:nth-child(1) {
     display: flex;
     flex-direction: row-reverse;
-
 }
-
-/* text area */
-.task>div:nth-child(2) {
-    overflow-y: auto;
-    height: 150px;
-    word-wrap: break-word;
-    /* Prevent long words from overflowing */
-}
-
-/* date */
-.task>div:nth-child(3) {
-    display: flex;
-    justify-content: flex-start;
-}
-
-/* time */
-.task>div:nth-child(4) {
-    display: flex;
-    justify-content: flex-start;
-}
-
 
 .task>div>img {
     width: 16px;
@@ -128,6 +98,28 @@ header {
 .task>div>img:hover {
     cursor: pointer;
 }
+
+
+/* text area */
+.task>div:nth-child(2) {
+    overflow-y: auto;
+    height: 150px;
+    word-wrap: break-word;
+    /* Prevent long words from overflowing */
+}
+
+/* date */
+.task>div:nth-child(3) {
+    display: flex;
+    justify-content: flex-start;
+}
+
+/* time */
+.task>div:nth-child(4) {
+    display: flex;
+    justify-content: flex-start;
+}
+
 
 .task>button {
     display: none;
