@@ -14,31 +14,49 @@ body {
 
 }
 
+#grid {
+    height: 100%;
+    display: grid;
+    grid-template-rows: 1fr 2fr 3fr;
+    align-items: center;
+}
+
 header {
     display: flex;
     justify-content: center;
     align-items: center;
     font-family: 'christmas';
     font-size: 3rem;
+    margin: 0;
+    padding: 0;
     /* Optional: Adjust font size */
 }
 
 #formContainer {
+    width: 100%;
     background-image: url('/assets/images/formbg.jpg');
     padding: 1rem;
     background-repeat: repeat-y;
-    height: 100%;
     display: flex;
     flex-direction: column;
-    margin-right: 10%;
-    margin-left: 10%;
-    background-position: center;
+    max-width: 600px;
+    margin: auto;
 }
 
-#grid {
+#tasksContainer {
     height: 100%;
-    display: grid;
-    grid-template-rows: 1fr 2fr 3fr;
+    width: 100%;
+    display: flex;
+    /* Enables Flexbox */
+    flex-wrap: wrap;
+    /* Prevents wrapping to the next row */
+    overflow-y: scroll;
+    /* Disables vertical scrolling */
+    justify-content: flex-start;
+    /* Centers tasks horizontally */
+    padding: 10px;
+    margin-top: 1rem;
+    margin: auto;
 }
 
 
@@ -52,31 +70,37 @@ header {
     display: flex;
     flex-direction: column;
     min-width: 200px;
+    min-height: 286.6px;
     padding-top: 20px;
     padding-right: 23px;
     padding-left: 5px;
-    flex-shrink: 0;
-    /* Prevent shrinking */
 
 }
 
-#tasksContainer {
-    display: flex;
-    /* Enables Flexbox */
-    flex-wrap: wrap;
-    /* Prevents wrapping to the next row */
-    overflow-y: auto;
-    /* Disables vertical scrolling */
-    justify-content: flex-start;
-    /* Centers tasks horizontally */
-    margin-top: 1rem;
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+
+    }
+
+    100% {
+        opacity: 1;
+    }
 }
+
+
+.fadeIn {
+    animation: fadeIn 1s ease-out;
+    animation-iteration-count: 1;
+}
+
 
 /* Delete button */
 .task>div:nth-child(1) {
     display: flex;
     flex-direction: row-reverse;
 }
+
 
 .task>div>img {
     width: 16px;
@@ -102,10 +126,10 @@ header {
 
 /* text area */
 .task>div:nth-child(2) {
-    overflow-y: auto;
     height: 150px;
+    width: 172px;
     word-wrap: break-word;
-    /* Prevent long words from overflowing */
+    overflow-y: auto;
 }
 
 /* date */
@@ -118,9 +142,4 @@ header {
 .task>div:nth-child(4) {
     display: flex;
     justify-content: flex-start;
-}
-
-
-.task>button {
-    display: none;
 }

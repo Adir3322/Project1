@@ -11,9 +11,10 @@ function collectData(index) {
         time,
     }
 }
-function generateHTML(data) {
+
+function generateHTML(data, isNewTask = false) {
     const newHTML = `
-     <div class="task">
+        <div class="task ${isNewTask ? 'fadeIn' : ''}" ${isNewTask ? 'onanimationend="this.classList.remove(\'fadeIn\')"' : ''}  data-id="${data.id}">
                 <div id="closeButtonContainer">
                     <img src="/assets/images/X.png" onclick="deleteTask(${data.id})">
                 </div>
@@ -61,19 +62,29 @@ function initStorage() {
 
 function loadTasksFromLocalStorage() {
     const taskJSON = localStorage.getItem(`tasks`)
+
     if (taskJSON) {
         const tasks = JSON.parse(taskJSON)
         for (const task of tasks) {
-            const newHTML = generateHTML(task)
-            renderHTML(newHTML)
+            if (!isExpired(task.date, task.time)) {
+                const newHTML = generateHTML(task)
+                renderHTML(newHTML)
+            }
         }
     }
 
     //needs to asure tasks time and to not show it if expired
 }
 
-function isExpired() {
+function isExpired(date, time) {
+    // Get the current date and time
+    const now = new Date();
 
+    // Combine the date and time from the task
+    const dueDateTime = new Date(`${date}T${time}`);
+
+    // Check if the due date and time are earlier than now
+    return dueDateTime < now;
 }
 
 function getNumberOfTasksInLocalStorage() {
@@ -82,21 +93,35 @@ function getNumberOfTasksInLocalStorage() {
 
 function deleteTask(id) {
     let tasks = JSON.parse(localStorage.getItem(`tasks`));
-    tasks = tasks.filter(task => task.id !== id);
-    localStorage.setItem(`tasks`, JSON.stringify(tasks));
+    const newTasks = []
+    // tasks = tasks.filter(task => task.id !== id);
+    for (const task of tasks) {
+        if (id !== task.id) {
+            newTasks.push(task)
+        }
+    }
+    localStorage.setItem(`tasks`, JSON.stringify(newTasks));
 
-    // Re-render tasks
-    document.getElementById(`tasksContainer`).innerHTML = '';
-    loadTasksFromLocalStorage();
+    // deletes tasks
+
+    const taskElement = document.querySelector(`.task[data-id="${id}"]`);
+    if (taskElement) {
+        taskElement.remove();
+    }
 }
+
 
 function addTask(event) {
     event.preventDefault()
     const data = collectData()
-    const newHTML = generateHTML(data)
-    renderHTML(newHTML)
-    saveTaskToLocalStorage(data)
-    clearForm()
+    if (!isExpired(data.date, data.time)) {
+        const newHTML = generateHTML(data, true)
+        renderHTML(newHTML)
+        saveTaskToLocalStorage(data)
+        clearForm()
+    } else {
+        alert(`The time is past due date`)
+    }
 }
 
 initStorage()
