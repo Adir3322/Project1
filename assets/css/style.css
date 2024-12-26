@@ -17,6 +17,7 @@ body {
 #grid {
     height: 100%;
     display: grid;
+    /* 1fr - header, 2fr-task form, 3fr tasks */
     grid-template-rows: 1fr 2fr 3fr;
     align-items: center;
 }
@@ -29,7 +30,6 @@ header {
     font-size: 3rem;
     margin: 0;
     padding: 0;
-    /* Optional: Adjust font size */
 }
 
 #formContainer {
@@ -44,6 +44,7 @@ header {
 }
 
 #tasksContainer {
+    /* Makes sure it takes all of the grids space  */
     height: 100%;
     width: 100%;
     display: flex;
@@ -51,9 +52,9 @@ header {
     flex-wrap: wrap;
     /* Prevents wrapping to the next row */
     overflow-y: scroll;
-    /* Disables vertical scrolling */
+    /* Makes sure the notes are form left to right*/
     justify-content: flex-start;
-    /* Centers tasks horizontally */
+    /* Spacing so it is spaced around nicely */
     padding: 10px;
     margin-top: 1rem;
     margin: auto;
@@ -63,20 +64,22 @@ header {
 .task {
     flex: 0 0 auto;
     background-image: url('/assets/images/notebg.png');
-    background-size: contain;
     /* Ensures the image covers the entire element */
     background-repeat: no-repeat;
     /* Prevents the image from repeating */
     display: flex;
     flex-direction: column;
+    /* Fixes the note size so it wont change */
     min-width: 200px;
     min-height: 286.6px;
+    /* Padding so everything would fit nicely inside the note(image) */
     padding-top: 20px;
     padding-right: 23px;
     padding-left: 5px;
 
 }
 
+/* The animation for when the task is added */
 @keyframes fadeIn {
     0% {
         opacity: 0;
@@ -88,9 +91,9 @@ header {
     }
 }
 
-
+/* calls the animation */
 .fadeIn {
-    animation: fadeIn 1s ease-out;
+    animation: fadeIn 1s;
     animation-iteration-count: 1;
 }
 
@@ -98,10 +101,11 @@ header {
 /* Delete button */
 .task>div:nth-child(1) {
     display: flex;
+    /* fixes it to the right side of the page */
     flex-direction: row-reverse;
 }
 
-
+/* Delete button image */
 .task>div>img {
     width: 16px;
     visibility: hidden;
@@ -112,6 +116,7 @@ header {
     /* Add a smooth fade-in effect */
 }
 
+/* How the delete button image apears(with hover) */
 .task:hover>div>img {
     visibility: visible;
     /* Make the image visible */
@@ -119,6 +124,7 @@ header {
     /* Fade the image in */
 }
 
+/* When cursor on X he becomes */
 .task>div>img:hover {
     cursor: pointer;
 }
@@ -126,20 +132,25 @@ header {
 
 /* text area */
 .task>div:nth-child(2) {
+    /* Fixes the size of the text area(in the note) so it won't change */
     height: 150px;
     width: 172px;
+    /*  */
     word-wrap: break-word;
+    /* makes sure the scroller is hidden until needed */
     overflow-y: auto;
 }
 
 /* date */
 .task>div:nth-child(3) {
     display: flex;
+    /* fixes it to the right */
     justify-content: flex-start;
 }
 
 /* time */
 .task>div:nth-child(4) {
     display: flex;
+    /* fixes it to the right */
     justify-content: flex-start;
 }
